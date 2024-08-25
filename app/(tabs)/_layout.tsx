@@ -1,59 +1,152 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import React from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Link, Tabs, useNavigation } from "expo-router";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import Colors from "@/constants/Colors";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+  const navigator = useNavigation();
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+    <Tabs screenOptions={{ tabBarShowLabel: false }} backBehavior="history">
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerTitle: "Homepage",
+          headerBackground: () => <View style={styles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity style={styles.icon}>
+              <AntDesign name="appstore-o" style={styles.navIcon} />
+            </TouchableOpacity>
+          ),
           headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+            <TouchableOpacity style={styles.icon}>
+              <AntDesign name="bells" style={styles.navIcon} />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="home" size={24} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="Schedule"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerTitle: "Schedule",
+          headerBackground: () => <View style={styles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={() => navigator.goBack()}
+            >
+              <AntDesign name="left" size={25} color="#a1a1a1" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="calendar" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="CreateTask"
+        options={{
+          headerTitle: "Create New Task",
+          headerBackground: () => <View style={styles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={() => navigator.goBack()}
+            >
+              <AntDesign name="left" size={25} color="#a1a1a1" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                borderRadius: 50,
+                backgroundColor: "#4D85E4",
+                padding: 10,
+                position: "relative",
+                top: -25,
+              }}
+            >
+              <AntDesign name="plus" size={30} color="#ffffff" />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Messages"
+        options={{
+          headerTitle: "Messages",
+          headerBackground: () => <View style={styles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={() => navigator.goBack()}
+            >
+              <AntDesign name="left" size={25} color="#a1a1a1" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="message1" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        options={{
+          headerTitle: "Profile",
+          headerBackground: () => <View style={styles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={() => navigator.goBack()}
+            >
+              <AntDesign name="left" size={25} color="#a1a1a1" />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color={color} />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#ffffff",
+  },
+  btnContainer: {
+    marginLeft: 30,
+    borderRadius: 5,
+    backgroundColor: "#f8f8f8",
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  navIcon: {
+    color: "#000000",
+    fontSize: 20,
+  },
+  icon: {
+    marginLeft: 30,
+    marginRight: 30,
+    padding: 5,
+    height: 40,
+    width: 40,
+    textAlign: "center",
+    backgroundColor: "#f8f8f8",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  header: {
+    height: 100,
+    backgroundColor: "#ffffff",
+  },
+});
