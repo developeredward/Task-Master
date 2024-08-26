@@ -11,7 +11,7 @@ export default function TabLayout() {
   return (
     <Tabs screenOptions={{ tabBarShowLabel: false }} backBehavior="history">
       <Tabs.Screen
-        name="index"
+        name="Home"
         options={{
           headerTitle: "Homepage",
           headerBackground: () => <View style={styles.header} />,
