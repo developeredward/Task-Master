@@ -154,8 +154,6 @@ export default function CreateTask() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
-    paddingHorizontal: 30,
   },
   task: {
     marginBottom: 30,

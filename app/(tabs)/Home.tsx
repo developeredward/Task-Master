@@ -52,7 +52,7 @@ const Home = () => {
       </LinearGradient>
       <View style={styles.container}>
         <View style={styles.heading}>
-          <Text style={styles.head}>Today's Task</Text>
+          <Text style={GlobalStyles.defaultHeading}>Today's Task</Text>
           <TouchableOpacity>
             <Text style={styles.more}>View All</Text>
           </TouchableOpacity>
@@ -167,9 +167,8 @@ const styles = StyleSheet.create({
     color: "#3E7AE1",
   },
   summary: {
-    marginHorizontal: 30,
     position: "relative",
-    marginTop: 20,
+
     height: 200,
     borderRadius: 20,
   },
@@ -213,18 +212,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 30,
-  },
-  head: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
   more: {
     fontSize: 12,
     color: "#ABABAB",
   },
   content: {
-    paddingHorizontal: 30,
     marginTop: 20,
     backgroundColor: "#ffffff",
     height: "100%",

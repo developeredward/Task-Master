@@ -33,14 +33,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="Schedule"
         options={{
-          headerTitle: "Schedule",
+          headerTitle: "Upcoming Tasks",
           headerBackground: () => <View style={styles.header} />,
           headerLeft: () => (
-            <TouchableOpacity
-              style={styles.btnContainer}
-              onPress={() => navigator.goBack()}
-            >
-              <AntDesign name="left" size={25} color="#a1a1a1" />
+            <TouchableOpacity style={styles.btnContainer}>
+              <AntDesign name="appstore-o" size={25} color="#a1a1a1" />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color }) => (
@@ -118,7 +115,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fdfdfd",
   },
   btnContainer: {
     marginLeft: 30,
@@ -147,6 +144,6 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 100,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fdfdfd",
   },
 });
