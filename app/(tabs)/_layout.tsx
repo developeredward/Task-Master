@@ -37,7 +37,11 @@ export default function TabLayout() {
           headerBackground: () => <View style={styles.header} />,
           headerLeft: () => (
             <TouchableOpacity style={styles.btnContainer}>
-              <AntDesign name="appstore-o" size={25} color="#a1a1a1" />
+              <AntDesign
+                name="appstore-o"
+                style={styles.navIcon}
+                color="#a1a1a1"
+              />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color }) => (
@@ -55,7 +59,7 @@ export default function TabLayout() {
               style={styles.btnContainer}
               onPress={() => navigator.goBack()}
             >
-              <AntDesign name="left" size={25} color="#a1a1a1" />
+              <AntDesign name="left" style={styles.navIcon} color="#a1a1a1" />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color }) => (
@@ -76,14 +80,20 @@ export default function TabLayout() {
       <Tabs.Screen
         name="Messages"
         options={{
-          headerTitle: "Messages",
+          headerTitle: "Inbox",
           headerBackground: () => <View style={styles.header} />,
           headerLeft: () => (
-            <TouchableOpacity
-              style={styles.btnContainer}
-              onPress={() => navigator.goBack()}
-            >
-              <AntDesign name="left" size={25} color="#a1a1a1" />
+            <TouchableOpacity style={styles.btnContainer}>
+              <AntDesign
+                name="appstore-o"
+                style={styles.navIcon}
+                color="#a1a1a1"
+              />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity style={styles.icon}>
+              <AntDesign name="filter" style={styles.navIcon} />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color }) => (
@@ -97,11 +107,12 @@ export default function TabLayout() {
           headerTitle: "Profile",
           headerBackground: () => <View style={styles.header} />,
           headerLeft: () => (
-            <TouchableOpacity
-              style={styles.btnContainer}
-              onPress={() => navigator.goBack()}
-            >
-              <AntDesign name="left" size={25} color="#a1a1a1" />
+            <TouchableOpacity style={styles.btnContainer}>
+              <AntDesign
+                name="appstore-o"
+                style={styles.navIcon}
+                color="#a1a1a1"
+              />
             </TouchableOpacity>
           ),
           tabBarIcon: ({ color }) => (
