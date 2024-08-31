@@ -1,11 +1,18 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+  Image,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { useNavigation } from "expo-router";
+import { useNavigation, Link } from "expo-router";
 import Home from "./(tabs)/Home";
 
-const Splash = () => {
-  const navigator = useNavigation();
+const Welcome = () => {
+  const navigator: any = useNavigation();
   return (
     <LinearGradient
       colors={["#4D85E4", "#4D85E4", "#ffffff", "#ffffff"]}
@@ -23,12 +30,11 @@ const Splash = () => {
           An organized workspace for Millions of users around the globe
         </Text>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigator.navigate("Home")}
-      >
-        <Text style={styles.text}>Let's Get Started</Text>
-      </TouchableOpacity>
+      <Link href={"/(tabs)/Home"} asChild>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.text}>Let's Get Started</Text>
+        </TouchableOpacity>
+      </Link>
     </LinearGradient>
   );
 };
@@ -55,11 +61,13 @@ const styles = StyleSheet.create({
     color: "#ABABAB",
     marginTop: 10,
   },
+
   button: {
-    position: "relative",
+    // position: "relative",
     top: 200,
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
     backgroundColor: "#4D85E4",
     width: 360,
     height: 50,
@@ -76,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Splash;
+export default Welcome;

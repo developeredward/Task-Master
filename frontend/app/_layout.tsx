@@ -1,8 +1,11 @@
+import { AntDesign } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Link, Stack, useNavigation } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { TouchableOpacity, View } from "react-native";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,8 +45,24 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const GlobalStyles = require("../styles/GlobalStyles");
+  const navigator = useNavigation();
   return (
-    <Stack initialRouteName="index" screenOptions={{ headerShown: false }}>
+    <Stack initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="TaskDetails"
+        options={{
+          headerShown: true,
+          title: "Task Details",
+          headerBackTitleVisible: false,
+          headerBackground: () => <View style={GlobalStyles.header} />,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigator.goBack()}>
+              <AntDesign name="left" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   );

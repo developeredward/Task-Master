@@ -7,6 +7,7 @@ import { TouchableOpacity, StyleSheet, View } from "react-native";
 import Colors from "@/constants/Colors";
 
 export default function TabLayout() {
+  const GlobalStyles = require("../../styles/GlobalStyles");
   const navigator = useNavigation();
   return (
     <Tabs screenOptions={{ tabBarShowLabel: false }} backBehavior="history">
@@ -14,7 +15,7 @@ export default function TabLayout() {
         name="Home"
         options={{
           headerTitle: "Homepage",
-          headerBackground: () => <View style={styles.header} />,
+          headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
             <TouchableOpacity style={styles.icon}>
               <AntDesign name="appstore-o" style={styles.navIcon} />
@@ -34,7 +35,7 @@ export default function TabLayout() {
         name="Schedule"
         options={{
           headerTitle: "Upcoming Tasks",
-          headerBackground: () => <View style={styles.header} />,
+          headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
             <TouchableOpacity style={styles.btnContainer}>
               <AntDesign
@@ -53,7 +54,7 @@ export default function TabLayout() {
         name="CreateTask"
         options={{
           headerTitle: "Create New Task",
-          headerBackground: () => <View style={styles.header} />,
+          headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
             <TouchableOpacity
               style={styles.btnContainer}
@@ -81,7 +82,7 @@ export default function TabLayout() {
         name="Messages"
         options={{
           headerTitle: "Inbox",
-          headerBackground: () => <View style={styles.header} />,
+          headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
             <TouchableOpacity style={styles.btnContainer}>
               <AntDesign
@@ -105,7 +106,7 @@ export default function TabLayout() {
         name="Profile"
         options={{
           headerTitle: "Profile",
-          headerBackground: () => <View style={styles.header} />,
+          headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
             <TouchableOpacity style={styles.btnContainer}>
               <AntDesign
@@ -152,9 +153,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-  },
-  header: {
-    height: 100,
-    backgroundColor: "#fdfdfd",
   },
 });

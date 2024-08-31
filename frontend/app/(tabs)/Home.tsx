@@ -11,8 +11,10 @@ import {
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { LinearGradient } from "expo-linear-gradient";
+import { useNavigation } from "expo-router";
 
 const Home = () => {
+  const navigator: any = useNavigation();
   const GlobalStyles = require("../../styles/GlobalStyles");
   return (
     <SafeAreaView style={GlobalStyles.defaultWrapper}>
@@ -58,7 +60,10 @@ const Home = () => {
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.content}>
-          <TouchableOpacity style={styles.task}>
+          <TouchableOpacity
+            onPress={() => navigator.navigate("TaskDetails")}
+            style={styles.task}
+          >
             <View style={styles.logo}>
               <Image
                 source={require("../../assets/icons/wheel.png")}

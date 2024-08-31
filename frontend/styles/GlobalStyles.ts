@@ -12,4 +12,8 @@ module.exports = StyleSheet.create({
     color: "#000000",
     fontWeight: "bold",
   },
+  header: {
+    height: 100,
+    backgroundColor: "#fdfdfd",
+  },
 });
