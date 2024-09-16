@@ -1,6 +1,5 @@
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-
 import { Link, Tabs, useNavigation } from "expo-router";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 

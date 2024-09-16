@@ -8,12 +8,32 @@ import {
   ScrollView,
 } from "react-native";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { LinearGradient } from "expo-linear-gradient";
-import { useNavigation } from "expo-router";
+import { useNavigation, useRouter, router } from "expo-router";
+import getData from "../../hooks/useFetch";
 
 const Home = () => {
+  const [data, setData] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    getData("http://localhost:3000/api/tasks", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      setData(response);
+    });
+  }, []);
+  // const handleFetch = () => {
+  //   let id = route;
+
+  //   console.log(id);
+  // };
+
   const navigator: any = useNavigation();
   const GlobalStyles = require("../../styles/GlobalStyles");
   return (
@@ -60,69 +80,56 @@ const Home = () => {
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.content}>
-          <TouchableOpacity
-            onPress={() => navigator.navigate("TaskDetails")}
-            style={styles.task}
-          >
-            <View style={styles.logo}>
-              <Image
-                source={require("../../assets/icons/wheel.png")}
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.title}>UI Design</Text>
-              <Text style={styles.info}>10:00 AM</Text>
-            </View>
-            <View style={styles.taskIcon}>
-              <AntDesign name="right" style={styles.nextIcon} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.task}>
-            <View style={styles.logo}>
-              <Image
-                source={require("../../assets/icons/code.png")}
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.title}>Web Development</Text>
-              <Text style={styles.info}>10:00 AM</Text>
-            </View>
-            <View style={styles.taskIcon}>
-              <AntDesign name="right" style={styles.nextIcon} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.task}>
-            <View style={styles.logo}>
-              <Image
-                source={require("../../assets/icons/office.png")}
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.title}>Office Meeting</Text>
-              <Text style={styles.info}>10:00 AM</Text>
-            </View>
-            <View style={styles.taskIcon}>
-              <AntDesign name="right" style={styles.nextIcon} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.task}>
-            <View style={styles.logo}>
-              <Image
-                source={require("../../assets/icons/idea.png")}
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.title}>Dashboard Design</Text>
-              <Text style={styles.info}>10:00 AM</Text>
-            </View>
-            <View style={styles.taskIcon}>
-              <AntDesign name="right" style={styles.nextIcon} />
-            </View>
-          </TouchableOpacity>
+          {data.length > 0 ? (
+            data.map((task: any) => (
+              <TouchableOpacity
+                id="task"
+                key={task._id}
+                onPress={() => {
+                  navigator.navigate("TaskDetails", { id: task._id });
+                }}
+                style={styles.task}
+              >
+                <View style={styles.logo}>
+                  {task.category === "design" ? (
+                    <Image
+                      source={require(`../../assets/icons/wheel.png`)}
+                      style={styles.image}
+                    />
+                  ) : task.category === "development" ? (
+                    <Image
+                      source={require(`../../assets/icons/code.png`)}
+                      style={styles.image}
+                    />
+                  ) : task.category === "meeting" ? (
+                    <Image
+                      source={require(`../../assets/icons/office.png`)}
+                      style={styles.image}
+                    />
+                  ) : task.category === "research" ? (
+                    <Image
+                      source={require(`../../assets/icons/idea.png`)}
+                      style={styles.image}
+                    />
+                  ) : (
+                    <Image
+                      source={require(`../../assets/icons/wheel.png`)}
+                      style={styles.image}
+                    />
+                  )}
+                </View>
+                <View style={styles.description}>
+                  <Text style={styles.title}>{task.title}</Text>
+                  <Text style={styles.info}>10:00 AM</Text>
+                </View>
+                <View style={styles.taskIcon}>
+                  <AntDesign name="right" style={styles.nextIcon} />
+                </View>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </ScrollView>
       </View>
     </SafeAreaView>
