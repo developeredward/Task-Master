@@ -6,16 +6,19 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 import React, { useEffect, useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useRouter, router } from "expo-router";
-import getData from "../../hooks/useFetch";
+import { getData } from "../../hooks/useFetch";
+import { Bar } from "react-native-progress";
 
 const Home = () => {
   const [data, setData] = useState([]);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -37,14 +40,18 @@ const Home = () => {
   const navigator: any = useNavigation();
   const GlobalStyles = require("../../styles/GlobalStyles");
   return (
-    <SafeAreaView style={GlobalStyles.defaultWrapper}>
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      style={[GlobalStyles.defaultWrapper]}
+    >
       <LinearGradient
         colors={["#6DBDE9", "#61A7DE", "#4380CE", "#2F63C0"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0.8, y: 1 }}
-        style={styles.summary}
+        style={[styles.summary]}
       >
-        <View style={styles.summaryText}>
+        <View style={[styles.summaryText]}>
           <Text style={styles.text}>Today's progress summary</Text>
           <Text style={(styles.text, styles.desc)}>10 Tasks</Text>
         </View>
@@ -66,9 +73,27 @@ const Home = () => {
               <AntDesign name="plus" style={styles.add} />
             </TouchableOpacity>
           </View>
-          <View>
-            <Text style={styles.text}>70%</Text>
-            <Text style={styles.desc}>Completed</Text>
+          <View style={{ alignItems: "center" }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: 150,
+              }}
+            >
+              <Text style={styles.desc}>Progress</Text>
+              <Text style={styles.desc}>70%</Text>
+            </View>
+            <Bar
+              progress={0.7}
+              width={150}
+              unfilledColor="#82A9DC"
+              color="#ffffff"
+              borderColor="transparent"
+              borderRadius={50}
+            />
           </View>
         </View>
       </LinearGradient>
@@ -79,7 +104,7 @@ const Home = () => {
             <Text style={styles.more}>View All</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView style={styles.content}>
+        <View style={styles.content}>
           {data.length > 0 ? (
             data.map((task: any) => (
               <TouchableOpacity
@@ -130,9 +155,9 @@ const Home = () => {
           ) : (
             <Text>Loading...</Text>
           )}
-        </ScrollView>
+        </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -230,7 +255,7 @@ const styles = StyleSheet.create({
     color: "#ABABAB",
   },
   content: {
-    marginTop: 20,
+    marginBottom: 50,
     backgroundColor: "#ffffff",
     height: "100%",
   },

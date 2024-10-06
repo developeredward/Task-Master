@@ -4,7 +4,7 @@ import { useFonts } from "expo-font";
 import { Link, Stack, useNavigation } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 
 export {
@@ -57,8 +57,11 @@ function RootLayoutNav() {
           headerBackTitleVisible: false,
           headerBackground: () => <View style={GlobalStyles.header} />,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigator.goBack()}>
-              <AntDesign name="left" size={24} color="black" />
+            <TouchableOpacity
+              style={styles.btnContainer}
+              onPress={() => navigator.goBack()}
+            >
+              <AntDesign name="left" style={styles.navIcon} />
             </TouchableOpacity>
           ),
         }}
@@ -67,3 +70,18 @@ function RootLayoutNav() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  btnContainer: {
+    borderRadius: 5,
+    backgroundColor: "#f8f8f8",
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  navIcon: {
+    color: "#666",
+    fontSize: 20,
+  },
+});

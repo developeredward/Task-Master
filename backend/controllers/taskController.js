@@ -62,6 +62,9 @@ const updateTask = asyncHandler(async (req, res) => {
   task.startingTime = req.body.startingTime || task.startingTime;
   task.endingTime = req.body.endingTime || task.endingTime;
   task.category = req.body.category || task.category;
+  task.progress = req.body.progress || task.progress;
+  task.tasks = req.body.tasks || task.tasks;
+
   task.members = req.body.members || task.members;
 
   const updatedTask = await task.save();

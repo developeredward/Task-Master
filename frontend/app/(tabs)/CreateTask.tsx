@@ -5,11 +5,13 @@ import {
   TouchableOpacity,
   TextInput,
   SafeAreaView,
+  Pressable,
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "expo-router";
 import { SetStateAction, useState } from "react";
+import { postData } from "@/hooks/useFetch";
 
 export default function CreateTask() {
   const GlobalStyles = require("../../styles/GlobalStyles");
@@ -35,16 +37,34 @@ export default function CreateTask() {
   };
   const [task, setTaskName] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   const handleSubmit = () => {
     if (task == "" || description == "") {
       alert("Please fill in all fields");
       return;
     }
+    postData("http://localhost:3000/api/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: task,
+        description: description,
+        startingTime: date,
+        endingTime: date,
+        category: category.toLowerCase(),
+      }),
+    }).then((response) => {
+      console.log(response);
+    });
+
     console.log("Task Name: ", task);
     console.log("Description: ", description);
     console.log("Date: ", date);
-    navigator.navigate("index");
+    console.log("Category: ", category);
+    alert("Task created successfully");
   };
 
   return (
@@ -61,14 +81,58 @@ export default function CreateTask() {
         <View style={styles.task}>
           <Text style={styles.title}>Description</Text>
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={(styles.category, styles.active)}>
-              <Text style={(styles.catBtn, styles.activeSelected)}>Design</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setCategory("Design");
+              }}
+              style={[
+                styles.category,
+                category == "Design" && { backgroundColor: "#3687eb" },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.catBtn,
+                  category == "Design" && { color: "#ffffff" },
+                ]}
+              >
+                Design
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.category}>
-              <Text style={styles.catBtn}>Development</Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                setCategory("Development");
+              }}
+              style={[
+                styles.category,
+                category == "Development" && { backgroundColor: "#3687eb" },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.catBtn,
+                  category == "Development" && { color: "#ffffff" },
+                ]}
+              >
+                Development
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.category}>
-              <Text style={styles.catBtn}>Research</Text>
+            <TouchableOpacity
+              onPress={() => setCategory("Research")}
+              style={[
+                styles.category,
+                category == "Research" && { backgroundColor: "#3687eb" },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.catBtn,
+                  category == "Research" && { color: "#ffffff" },
+                ]}
+              >
+                Research
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -182,17 +246,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     gap: 20,
   },
-  active: {
-    backgroundColor: "#3687eb",
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 100,
-    paddingHorizontal: 20,
-  },
-  activeSelected: {
-    color: "#ffffff",
-  },
+  // active: {
+  //   backgroundColor: "#3687eb",
+  //   borderRadius: 10,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   width: 100,
+  //   paddingHorizontal: 20,
+  // },
+  // activeSelected: {
+  //   color: "#ffffff",
+  // },
 
   category: {
     height: 40,
