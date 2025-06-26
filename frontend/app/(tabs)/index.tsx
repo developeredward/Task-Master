@@ -22,7 +22,7 @@ const Home = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getData("http://localhost:3000/api/tasks", {
+    getData("http://192.168.8.153:3000/api/tasks", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

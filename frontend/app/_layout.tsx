@@ -48,7 +48,7 @@ function RootLayoutNav() {
   const GlobalStyles = require("../styles/GlobalStyles");
   const navigator = useNavigation();
   return (
-    <Stack initialRouteName="Home" screenOptions={{ headerShown: false }}>
+    <Stack initialRouteName="index" screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="TaskDetails"
         options={{
